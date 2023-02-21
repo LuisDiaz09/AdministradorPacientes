@@ -3,6 +3,24 @@ import {useState, useEffect} from 'react';
 const Formulario = () => {
 
     const[nombre, setNombre] = useState('');
+    const[apellido, setApellido] = useState('');
+    const[correo, setCorreo] = useState('');
+    const[fecha, setFecha] = useState('');
+    const[consulta, setConsulta] = useState('');
+    const[error, setError] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if([nombre, apellido, correo, fecha, consulta].includes('')){
+            console.log("Todos los campos son necesarios")
+
+            setError(true)
+            return;
+        }
+
+        setError(false)
+    }
 
     return (
         <div className="md:w-1/2 lg:w-2/5">
@@ -13,7 +31,13 @@ const Formulario = () => {
                     Administralos 
                 </span>
             </p>
-            <form className="bg-white shadow-md rounded-lg py-10 px-5 m-3">
+            <form
+            onSubmit={handleSubmit} 
+            className="bg-white shadow-md rounded-lg py-10 px-5 m-3">
+                {error && 
+                    <div className="bg-red-700 text-white font-bold text-center p-3 mb-3"> 
+                        <p>Todos los campos son obligatorios</p> 
+                    </div> }
                 <div className="mb-5">
                     <label htmlFor='paciente' className='block text-gray-800 font-bold'>
                         Nombre(s) del Paciente
@@ -37,6 +61,8 @@ const Formulario = () => {
                     type="text" 
                     placeholder='Apellidos'
                     className="w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md"
+                    value={apellido}
+                    onChange={(e) => setApellido(e.target.value)}
                     />
                 </div>
 
@@ -49,6 +75,8 @@ const Formulario = () => {
                     type="email" 
                     placeholder='ejemplo@fisio.com'
                     className="w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md"
+                    value={correo}
+                    onChange={(e) => setCorreo(e.target.value)}
                     />
                 </div>
 
@@ -60,6 +88,8 @@ const Formulario = () => {
                     id='alta'
                     type="date" 
                     className="w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md"
+                    value={fecha}
+                    onChange={(e) => setFecha(e.target.value)}
                     />
                 </div>
 
@@ -71,6 +101,8 @@ const Formulario = () => {
                     id='alta'
                     placeholder='Escribe tu consulta'
                     className="w-full border-2 p-2 mt-2 placeholder-gray-400 rounded-md"
+                    value={consulta}
+                    onChange={(e) => setConsulta(e.target.value)}
                     />
                 </div>
                 <input 
