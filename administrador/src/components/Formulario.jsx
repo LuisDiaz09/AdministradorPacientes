@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import Error from './Error';
 
 const Formulario = ({pacientes ,setPacientes}) => {
 
@@ -14,7 +15,6 @@ const Formulario = ({pacientes ,setPacientes}) => {
 
         if([nombre, apellido, correo, fecha, consulta].includes('')){
             console.log("Todos los campos son necesarios")
-
             setError(true)
             return;
         }
@@ -31,6 +31,7 @@ const Formulario = ({pacientes ,setPacientes}) => {
         }
         setPacientes([...pacientes, objetoPacientes])
 
+        //Reiniciando Formulario
         setNombre ("")
         setApellido ("")
         setCorreo ("")
@@ -50,10 +51,7 @@ const Formulario = ({pacientes ,setPacientes}) => {
             <form
             onSubmit={handleSubmit} 
             className="bg-white shadow-md rounded-lg py-10 px-5 m-3">
-                {error && 
-                    <div className="bg-red-700 text-white font-bold text-center p-3 mb-3"> 
-                        <p>Todos los campos son obligatorios</p> 
-                    </div> }
+                {error &&  <Error/>}
                 <div className="mb-5">
                     <label htmlFor='paciente' className='block text-gray-800 font-bold'>
                         Nombre(s) del Paciente
